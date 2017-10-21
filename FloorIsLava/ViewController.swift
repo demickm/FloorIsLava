@@ -36,13 +36,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         lavaNode.eulerAngles = SCNVector3(CGFloat(90.degreesToRadians),0,0)
         return lavaNode
     }
-    
+    // creates an anchor when new plane is detected
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         let lavaNode = createLava(planeAnchor: planeAnchor)
         node.addChildNode(lavaNode)
     }
-    
+    // updates the plane as the plane is updated by phone
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
          guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         node.enumerateChildNodes { (childNode, _) in
@@ -51,7 +51,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let lavaNode = createLava(planeAnchor: planeAnchor)
         node.addChildNode(lavaNode)
     }
-    
+    // removes redundant points
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
         guard let _ = anchor as? ARPlaneAnchor else { return }
         node.enumerateChildNodes { (childNode, _) in
