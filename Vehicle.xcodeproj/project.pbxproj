@@ -12,16 +12,18 @@
 		5D15E5981F994FA3006F2B3A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D15E5961F994FA3006F2B3A /* Main.storyboard */; };
 		5D15E59A1F994FA3006F2B3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D15E5991F994FA3006F2B3A /* Assets.xcassets */; };
 		5D15E59D1F994FA3006F2B3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D15E59B1F994FA3006F2B3A /* LaunchScreen.storyboard */; };
+		5DD101731FB22A1200999220 /* Car-scene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 5DD101721FB22A1200999220 /* Car-scene.scn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5D15E58F1F994FA3006F2B3A /* FloorIsLava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloorIsLava.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D15E58F1F994FA3006F2B3A /* Vehicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vehicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D15E5921F994FA3006F2B3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D15E5941F994FA3006F2B3A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5D15E5971F994FA3006F2B3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5D15E5991F994FA3006F2B3A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D15E59C1F994FA3006F2B3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D15E59E1F994FA3006F2B3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DD101721FB22A1200999220 /* Car-scene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "Car-scene.scn"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +40,7 @@
 		5D15E5861F994FA3006F2B3A = {
 			isa = PBXGroup;
 			children = (
-				5D15E5911F994FA3006F2B3A /* FloorIsLava */,
+				5D15E5911F994FA3006F2B3A /* Vehicle */,
 				5D15E5901F994FA3006F2B3A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,30 +48,31 @@
 		5D15E5901F994FA3006F2B3A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5D15E58F1F994FA3006F2B3A /* FloorIsLava.app */,
+				5D15E58F1F994FA3006F2B3A /* Vehicle.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5D15E5911F994FA3006F2B3A /* FloorIsLava */ = {
+		5D15E5911F994FA3006F2B3A /* Vehicle */ = {
 			isa = PBXGroup;
 			children = (
 				5D15E5921F994FA3006F2B3A /* AppDelegate.swift */,
 				5D15E5941F994FA3006F2B3A /* ViewController.swift */,
+				5DD101721FB22A1200999220 /* Car-scene.scn */,
 				5D15E5961F994FA3006F2B3A /* Main.storyboard */,
 				5D15E5991F994FA3006F2B3A /* Assets.xcassets */,
 				5D15E59B1F994FA3006F2B3A /* LaunchScreen.storyboard */,
 				5D15E59E1F994FA3006F2B3A /* Info.plist */,
 			);
-			path = FloorIsLava;
+			path = Vehicle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5D15E58E1F994FA3006F2B3A /* FloorIsLava */ = {
+		5D15E58E1F994FA3006F2B3A /* Vehicle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5D15E5A11F994FA3006F2B3A /* Build configuration list for PBXNativeTarget "FloorIsLava" */;
+			buildConfigurationList = 5D15E5A11F994FA3006F2B3A /* Build configuration list for PBXNativeTarget "Vehicle" */;
 			buildPhases = (
 				5D15E58B1F994FA3006F2B3A /* Sources */,
 				5D15E58C1F994FA3006F2B3A /* Frameworks */,
@@ -79,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = FloorIsLava;
+			name = Vehicle;
 			productName = FloorIsLava;
-			productReference = 5D15E58F1F994FA3006F2B3A /* FloorIsLava.app */;
+			productReference = 5D15E58F1F994FA3006F2B3A /* Vehicle.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -100,7 +103,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5D15E58A1F994FA3006F2B3A /* Build configuration list for PBXProject "FloorIsLava" */;
+			buildConfigurationList = 5D15E58A1F994FA3006F2B3A /* Build configuration list for PBXProject "Vehicle" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -113,7 +116,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5D15E58E1F994FA3006F2B3A /* FloorIsLava */,
+				5D15E58E1F994FA3006F2B3A /* Vehicle */,
 			);
 		};
 /* End PBXProject section */
@@ -123,6 +126,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DD101731FB22A1200999220 /* Car-scene.scn in Resources */,
 				5D15E59D1F994FA3006F2B3A /* LaunchScreen.storyboard in Resources */,
 				5D15E59A1F994FA3006F2B3A /* Assets.xcassets in Resources */,
 				5D15E5981F994FA3006F2B3A /* Main.storyboard in Resources */,
@@ -276,7 +280,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 66H4JCAA7P;
-				INFOPLIST_FILE = FloorIsLava/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Vehicle/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Demick.McMullin.FloorIsLava;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -291,7 +296,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 66H4JCAA7P;
-				INFOPLIST_FILE = FloorIsLava/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Vehicle/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Demick.McMullin.FloorIsLava;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -303,7 +309,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5D15E58A1F994FA3006F2B3A /* Build configuration list for PBXProject "FloorIsLava" */ = {
+		5D15E58A1F994FA3006F2B3A /* Build configuration list for PBXProject "Vehicle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5D15E59F1F994FA3006F2B3A /* Debug */,
@@ -312,7 +318,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5D15E5A11F994FA3006F2B3A /* Build configuration list for PBXNativeTarget "FloorIsLava" */ = {
+		5D15E5A11F994FA3006F2B3A /* Build configuration list for PBXNativeTarget "Vehicle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5D15E5A21F994FA3006F2B3A /* Debug */,
