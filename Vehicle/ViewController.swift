@@ -8,10 +8,13 @@
 
 import UIKit
 import ARKit
+import CoreMotion
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet weak var sceneView: ARSCNView!
+    
+    // Vehicle ====================================================================
     
     @IBAction func addVehicle(_ sender: Any) {
         guard let pointOfView = sceneView.pointOfView else {return}
@@ -21,21 +24,45 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let currentPositionOfCamera = orientation + location
         
         let scene = SCNScene(named: "Car-scene.scn")
-        let carNode = (scene?.rootNode.childNode(withName: "frame", recursively: false))! 
-        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: carNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
-        carNode.physicsBody = body
-        carNode.position = currentPositionOfCamera
-        sceneView.scene.rootNode.addChildNode(carNode)
+        let chassis = (scene?.rootNode.childNode(withName: "frame", recursively: false))!
+        let frontLeftWheel = chassis.childNode(withName: "frontLeftParent", recursively: false)
+        let frontRightWheel = chassis.childNode(withName: "frontRightParent", recursively: false)
+        let backLeftWheel = chassis.childNode(withName: "rearLeftParent", recursively: false)
+        let backRightWheel = chassis.childNode(withName: "rearRightParent", recursively: false) 
+        let v_FrontLeftWheel = SCNPhysicsVehicleWheel(node: frontLeftWheel!)
+        let v_FrontRightWheel = SCNPhysicsVehicleWheel(node: frontRightWheel!)
+        let v_backLeftWheel = SCNPhysicsVehicleWheel(node: backLeftWheel!)
+        let v_backRightWheel = SCNPhysicsVehicleWheel(node: backRightWheel!)
+        
+        
+        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassis, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
+        
+        chassis.physicsBody = body
+        chassis.position = currentPositionOfCamera
+        self.vehicle = SCNPhysicsVehicle(chassisBody: chassis.physicsBody!, wheels: [v_backLeftWheel, v_backRightWheel, v_FrontLeftWheel, v_FrontRightWheel])
+        sceneView.scene.physicsWorld.addBehavior(vehicle)
+        sceneView.scene.rootNode.addChildNode(chassis)
     }
-
+    
+    
+    // Variables =======================================
+    
     let configuration = ARWorldTrackingConfiguration()
-   
+    let motionManager = CMMotionManager()
+    var vehicle = SCNPhysicsVehicle()
+    var orientation: CGFloat = 0
+    var direction: CGFloat = 0
+    var touched: Int = 0
+    var accelerationValues = [UIAccelerationValue(0), UIAccelerationValue(0)]
+    // Functions ================================================================
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         self.configuration.planeDetection = .horizontal
         self.sceneView.session.run(configuration)
         self.sceneView.autoenablesDefaultLighting = true
+        self.setupAccelerometer()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,15 +101,80 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.enumerateChildNodes { (childNode, _) in
             childNode.removeFromParentNode()
     }
+  
+}
     
-}
-}
+    func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+        var engineForce: CGFloat = 0
+        var brakingForce: CGFloat = 0
+        self.vehicle.setSteeringAngle(-orientation, forWheelAt: 2)
+        self.vehicle.setSteeringAngle(-orientation, forWheelAt: 3)
+        if self.touched == 1 {
+            engineForce = 5
+        } else if self.touched == 2 {
+            engineForce = -5
+        } else if self.touched == 3 {
+            brakingForce = 100
+        }
+        else {
+            engineForce = 0
+        }
+        self.vehicle.applyEngineForce(engineForce, forWheelAt: 0)
+        self.vehicle.applyEngineForce(engineForce, forWheelAt: 1)
+        self.vehicle.applyBrakingForce(brakingForce, forWheelAt: 0)
+        self.vehicle.applyBrakingForce(brakingForce, forWheelAt: 1)
+    }
 
+    func setupAccelerometer() {
+        if motionManager.isAccelerometerAvailable {
+           motionManager.accelerometerUpdateInterval = 1/60
+            motionManager.startAccelerometerUpdates(to: .main, withHandler: { (accelerometerData, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let accelerometerData = accelerometerData else {return}
+                self.accelerometerDidChange(acceleration: accelerometerData.acceleration)
+                
+            })
+        } else {
+            print("you suck")
+        }
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let _ = touches.first else {return}
+        self.touched += touches.count
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.touched = 0
+    }
+    
+    
+    func accelerometerDidChange(acceleration: CMAcceleration) {
+        accelerationValues[1] = filtered(currentAcceleration: accelerationValues[1], UpdatedAcceleration: acceleration.y)
+        accelerationValues[0] = filtered(currentAcceleration: accelerationValues[0], UpdatedAcceleration: acceleration.x)
+        if accelerationValues[0] > 0 {
+            self.orientation = -CGFloat(accelerationValues[1])
+        } else {
+            self.orientation = CGFloat(accelerationValues[1])
+        }
+        
+    }
+    
+    func filtered(currentAcceleration: Double, UpdatedAcceleration: Double) -> Double {
+        let kfilteringFactor = 0.5
+        return UpdatedAcceleration * kfilteringFactor + currentAcceleration * (1-kfilteringFactor)
+    }
+} // end of class ViewController =============================================
+
+// add 2 SCNVector3 vectors function
 func +(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(left.x + right.x, left.y + right.y, left.z + right.z)
 }
 
 extension Int {
-        
         var degreesToRadians: Double { return Double(self) * .pi/180}
     }
